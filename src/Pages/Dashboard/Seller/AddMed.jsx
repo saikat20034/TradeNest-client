@@ -42,14 +42,14 @@ const AddMed = () => {
     }
 
     try {
-      const response = await fetch('https://medi-quest-server-three.vercel.app/medicines', {
+      const response = await fetch('http://localhost:5000/medicines', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(medData),
         credentials: 'include',
-      })
+      });
 
       if (response.ok) {
         toast.success("Data Added Successfully.")
@@ -70,7 +70,7 @@ const AddMed = () => {
   return (
     <div>
       <Helmet>
-        <title>Add Medicine | Dashboard</title>
+        <title>Add Product | Dashboard</title>
       </Helmet>
 
       {/* Form */}

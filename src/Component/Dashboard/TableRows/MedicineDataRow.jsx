@@ -19,12 +19,12 @@ const MedicineDataRow = ({ refetch, med }) => {
   const handleMedDelete = async () => {
     try {
       const { data } = await axiosSecure.delete(`/medicines/${_id}`)
-      toast.success("Medicine Deleted Successfully")
+      toast.success("Product Deleted Successfully")
       refetch()
       console.log(data);
     }catch(err){
       console.log(err);
-      toast.error("Failed to delete medicine")
+      toast.error("Failed to delete product")
     } finally {
       closeModal()
     }

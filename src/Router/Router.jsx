@@ -17,6 +17,12 @@ import ManageOrders from './../Pages/Dashboard/Seller/ManageOrders';
 import SellerRoute from './SellerRoute';
 import AdminRoute from './AdminRoute';
 import UpdateProfile from '../Pages/UpdateProfile/UpdateProfile';
+import AboutUs from '../Pages/AboutUs';
+import Jobs from '../Pages/Jobs'
+import PrivacyPolicy from '../Pages/PrivacyPolicy'
+import PressKit from '../Pages/PressKitt'
+import TermsCondition from '../Pages/TearmsCondition'
+import ContactUs from '../Pages/Contact'
 
 export const Router = createBrowserRouter([
   {
@@ -34,6 +40,7 @@ export const Router = createBrowserRouter([
       },
     ],
   },
+
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <SignUp /> },
   {
@@ -86,7 +93,7 @@ export const Router = createBrowserRouter([
         path: 'profile',
         element: (
           <PrivateRoute>
-            <Profile/>
+            <Profile />
           </PrivateRoute>
         ),
       },
@@ -94,7 +101,7 @@ export const Router = createBrowserRouter([
         path: 'my-orders',
         element: (
           <PrivateRoute>
-              <MyOrders />
+            <MyOrders />
           </PrivateRoute>
         ),
       },
@@ -115,7 +122,14 @@ export const Router = createBrowserRouter([
             <UpdateProfile />
           </PrivateRoute>
         ),
-      }
+      },
     ],
   },
-])
+  { path: 'about-us', element: <AboutUs></AboutUs> },
+  { path: 'contact', element: <ContactUs></ContactUs> },
+
+  { path: 'jobs', element: <Jobs></Jobs> },
+  { path: 'press-kit', element: <PressKit></PressKit> },
+  { path: 'privacy-policy', element: <PrivacyPolicy></PrivacyPolicy> },
+  { path: 'terms-of-service', element: <TermsCondition></TermsCondition> },
+]);

@@ -44,7 +44,7 @@ const AddMedForm = ({ handleSubmit, uploadButtonText, setUploadButtonText, loadi
                 name="name"
                 id="name"
                 type="text"
-                placeholder="Medicine Name"
+                placeholder="Product Name"
                 required
               />
             </div>
@@ -58,12 +58,75 @@ const AddMedForm = ({ handleSubmit, uploadButtonText, setUploadButtonText, loadi
                 className="w-full px-4 py-3 border-lime-300 focus:outline-lime-500 rounded-md bg-white"
                 name="category"
               >
-                <option value="General">General</option>
-                <option value="Infectious">Infectious</option>
-                <option value="Prescribed">Prescribed</option>
-                <option value="Veterinary">Veterinary</option>
-                <option value="Ointment">Ointment</option>
-                <option value="Suppliment">Suppliment</option>
+                <option value="Smartphones">Smartphones</option>
+                <option value="Feature Phones">Feature Phones</option>
+                <option value="Phone Cases & Covers">
+                  Phone Cases & Covers
+                </option>
+                <option value="Screen Protectors">Screen Protectors</option>
+                <option value="Mobile Holders & Mounts">
+                  Mobile Holders & Mounts
+                </option>
+                <option value="Laptops">Laptops</option>
+                <option value="Desktop PCs">Desktop PCs</option>
+                <option value="Monitors">Monitors</option>
+                <option value="Keyboards & Mice">Keyboards & Mice</option>
+                <option value="External Hard Drives & SSDs">
+                  External Hard Drives & SSDs
+                </option>
+                <option value="Printers & Scanners">Printers & Scanners</option>
+                <option value="USB Hubs & Cables">USB Hubs & Cables</option>
+                <option value="Earphones (Wired & Wireless)">
+                  Earphones (Wired & Wireless)
+                </option>
+                <option value="Headphones">
+                  Headphones (Over-Ear, On-Ear, In-Ear)
+                </option>
+                <option value="Bluetooth Speakers">Bluetooth Speakers</option>
+                <option value="Smart Glasses">Smart Glasses</option>
+                <option value="VR Headsets">VR Headsets</option>
+                <option value="DSLRs & Mirrorless Cameras">
+                  DSLRs & Mirrorless Cameras
+                </option>
+                <option value="Action Cameras">
+                  Action Cameras (GoPro, DJI)
+                </option>
+                <option value="Security Cameras">Security Cameras</option>
+                <option value="Camera Tripods & Accessories">
+                  Camera Tripods & Accessories
+                </option>
+                <option value="Smart TVs">Smart TVs</option>
+                <option value="LED & OLED TVs">LED & OLED TVs</option>
+                <option value="Soundbars & Home Theaters">
+                  Soundbars & Home Theaters
+                </option>
+                <option value="Streaming Devices">Streaming Devices</option>
+                <option value="Projectors">Projectors</option>
+                <option value="Power Banks">Power Banks</option>
+                <option value="Fast Chargers">Fast Chargers</option>
+                <option value="Wireless Chargers">Wireless Chargers</option>
+                <option value="Charging Cables">Charging Cables</option>
+                <option value="Smart Lights & Bulbs">
+                  Smart Lights & Bulbs
+                </option>
+                <option value="Car Gadgets">
+                  Car Gadgets (Dash Cams, Bluetooth Transmitters)
+                </option>
+                <option value="Smart Pens & Notebooks">
+                  Smart Pens & Notebooks
+                </option>
+                <option value="Sharee">Sharee</option>
+                <option value="3pc set">3pc set</option>
+                <option value="Punjabi">Punjabi</option>
+                <option value="Shirt">Shirt</option>
+                <option value="Pant">Pant</option>
+                <option value="Toys">Toys</option>
+                <option value="Food">Food</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Homemade Food">Homemade Food</option>
+                <option value="Regional Food">Regional Food</option>
+                <option value="Fish">Fish</option>
+                <option value="Others">Others</option>
               </select>
             </div>
             {/* Description */}
@@ -73,7 +136,7 @@ const AddMedForm = ({ handleSubmit, uploadButtonText, setUploadButtonText, loadi
               </label>
               <textarea
                 id="description"
-                placeholder="Write medicine description here..."
+                placeholder="Write about the product here..."
                 className="block rounded-md focus:lime-300 w-full h-32 px-4 py-3 text-gray-800 border border-lime-300 bg-white focus:outline-lime-500"
                 name="description"
               ></textarea>
@@ -146,7 +209,11 @@ const AddMedForm = ({ handleSubmit, uploadButtonText, setUploadButtonText, loadi
               type="submit"
               className="w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-lime-500"
             >
-              {loading ? <FaYinYang className="animate-spin m-auto" /> : "Save & Continue"}
+              {loading ? (
+                <FaYinYang className="animate-spin m-auto" />
+              ) : (
+                'Save & Continue'
+              )}
             </button>
           </div>
         </div>

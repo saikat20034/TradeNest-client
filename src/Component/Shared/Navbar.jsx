@@ -12,7 +12,7 @@ const Navbar = () => {
   const logo = '/public/image/tradenest.webp';
 
   return (
-    <div className="fixed w-11/12 bg-gradient-to-r from-[#4B0082] to-[#008080] z-10 shadow-lg text-white">
+    <div className="fixed w-[1280px] bg-gradient-to-r from-[#4B0082] to-[#008080] z-10 shadow-lg text-white">
       <div className="py-3 border-b-[1px] border-gray-300">
         <Container>
           <div className="flex justify-between items-center gap-3 md:gap-0">

@@ -11,7 +11,9 @@ const Meds = () => {
   useEffect(() => {
     const fetchMedicines = async () => {
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/medicines`);
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/medicines`
+        );
         setMedicines(data);
       } catch (error) {
         console.error('Error fetching medicines:', error);
@@ -24,14 +26,14 @@ const Meds = () => {
   }, []);
 
   if (loading) {
-    return <LoadingSpinner/>;
+    return <LoadingSpinner />;
   }
 
   return (
     <Container>
       {medicines && medicines.length > 0 ? (
         <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
-          {medicines.map((medicine) => (
+          {medicines.map(medicine => (
             <Card key={medicine._id} medicine={medicine} />
           ))}
         </div>

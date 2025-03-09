@@ -19,7 +19,7 @@ const Sidebar = () => {
   const handleToggle = () => {
     setActive(!isActive)
   }
-  const logo = "https://i.ibb.co.com/LNtr7fC/Screenshot-2025-01-29-000715-removebg-preview.png"
+  const logo = '/public/image/Screenshot 2025-03-08 120010.png';
   return (
     <>
       {/* Small Screen Navbar */}

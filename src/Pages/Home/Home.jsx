@@ -10,12 +10,12 @@ const Home = () => {
   return (
     <div className="">
       <Helmet>
-        <title>MediQuest | Buy Essential Medicines</title>
+        <title>TradeNest | Get, Give, and Succeed</title>
       </Helmet>
       <Banner />
       {/* <CategoryCard /> */}
       <OfferSlider />
-      <Meds/>
+      <Meds />
     </div>
   );
 };
