@@ -28,9 +28,9 @@ const HowToUse = () => {
     },
     {
       icon: <FaHandshake className="text-5xl text-red-500" />,
-      title: 'Meet & Complete',
+      title: 'Complete the order',
       description:
-        'Meet the seller in a safe place and complete the transaction.',
+        'Complete the order with safe transaction.',
     },
   ];
 

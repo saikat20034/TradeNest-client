@@ -43,7 +43,7 @@ const Footer = () => {
           <p>
             <strong>TradeNest HQ</strong>
           </p>
-          <p>123 Market Street, Dhaka, Bangladesh</p>
+          <p>MBSTU campus, Dhaka, Bangladesh</p>
           <p>
             Email:{' '}
             <a href="mailto:support@tradenest.com" className="text-yellow-300">
