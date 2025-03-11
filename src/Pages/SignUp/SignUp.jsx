@@ -1,10 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-hot-toast';
-import { TbFidgetSpinner } from 'react-icons/tb';
-import { uploadImage } from '../../API/utils';
 import { FaYinYang } from 'react-icons/fa';
+import { uploadImage } from '../../API/utils';
 import useAuth from '../../Hooks/useAuth';
+import { sendEmailVerification } from 'firebase/auth';
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } =
@@ -27,11 +27,14 @@ const SignUp = () => {
       // Register user
       const result = await createUser(email, password);
 
+      // Send email verification
+      await sendEmailVerification(result.user);
+      toast.success('Verification email sent! Please check your inbox.');
+
       // Update user profile with name and uploaded image URL
       await updateUserProfile(name, imageUrl);
 
-      navigate('/');
-      toast.success('Signup Successful');
+      navigate('/verify-email'); // Redirect to a verification page
     } catch (err) {
       console.error(err);
       toast.error(err.message || 'Something went wrong');
@@ -41,9 +44,7 @@ const SignUp = () => {
   // Handle Google Signin
   const handleGoogleSignIn = async () => {
     try {
-      // User Registration using Google
       await signInWithGoogle();
-
       navigate('/');
       toast.success('Signup Successful');
     } catch (err) {
@@ -59,12 +60,9 @@ const SignUp = () => {
           <h1 className="my-3 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500">
             Sign Up
           </h1>
-          <p className="text-sm text-gray-400">Welcome to MediQuest</p>
+          <p className="text-sm text-gray-400">Welcome to TradeNest</p>
         </div>
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-6 ng-untouched ng-pristine ng-valid"
-        >
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-4">
             <div>
               <label htmlFor="name" className="block mb-2 text-sm">
@@ -74,8 +72,8 @@ const SignUp = () => {
                 type="text"
                 name="name"
                 id="name"
-                placeholder="Enter Your Name Here"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-lime-500 bg-gray-100 text-gray-900 transition duration-300 ease-in-out transform hover:scale-105"
+                required
+                className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-100 text-gray-900"
               />
             </div>
             <div>
@@ -88,7 +86,7 @@ const SignUp = () => {
                 id="image"
                 name="image"
                 accept="image/*"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-100 text-gray-900 transition duration-300 ease-in-out transform hover:scale-105"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-100 text-gray-900"
               />
             </div>
             <div>
@@ -100,32 +98,26 @@ const SignUp = () => {
                 name="email"
                 id="email"
                 required
-                placeholder="Enter Your Email Here"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-lime-500 bg-gray-100 text-gray-900 transition duration-300 ease-in-out transform hover:scale-105"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-100 text-gray-900"
               />
             </div>
             <div>
-              <div className="flex justify-between">
-                <label htmlFor="password" className="text-sm mb-2">
-                  Password
-                </label>
-              </div>
+              <label htmlFor="password" className="text-sm mb-2">
+                Password
+              </label>
               <input
                 type="password"
                 name="password"
-                autoComplete="new-password"
                 id="password"
                 required
-                placeholder="*******"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-lime-500 bg-gray-100 text-gray-900 transition duration-300 ease-in-out transform hover:scale-105"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-100 text-gray-900"
               />
             </div>
           </div>
-
           <div>
             <button
               type="submit"
-              className="bg-gradient-to-r from-yellow-400 to-orange-500 w-full rounded-md py-3 text-white text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              className="bg-gradient-to-r from-yellow-400 to-orange-500 w-full rounded-md py-3 text-white text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               {loading ? (
                 <FaYinYang className="animate-spin m-auto text-xl" />
@@ -136,15 +128,13 @@ const SignUp = () => {
           </div>
         </form>
         <div className="flex items-center pt-4 space-x-1">
-          <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
-          <p className="px-3 text-sm dark:text-gray-400">
-            Signup with social accounts
-          </p>
-          <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
+          <div className="flex-1 h-px bg-gray-700"></div>
+          <p className="px-3 text-sm">Signup with social accounts</p>
+          <div className="flex-1 h-px bg-gray-700"></div>
         </div>
         <div
           onClick={handleGoogleSignIn}
-          className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 transition-all duration-200 transform hover:scale-105"
+          className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 transition-all duration-200"
         >
           <FcGoogle size={32} />
           <p className="text-lg">Continue with Google</p>

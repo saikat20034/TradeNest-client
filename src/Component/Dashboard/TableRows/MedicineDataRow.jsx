@@ -60,11 +60,11 @@ const MedicineDataRow = ({ refetch, med }) => {
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         <span
           onClick={openModal}
-          className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
+          className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-white leading-tight'
         >
           <span
             aria-hidden='true'
-            className='absolute inset-0 bg-red-200 opacity-50 rounded-full'
+            className='absolute inset-0 bg-red-700 opacity-50 rounded-lg px-6 py-2'
           ></span>
           <span className='relative'>Delete</span>
         </span>
@@ -75,13 +75,13 @@ const MedicineDataRow = ({ refetch, med }) => {
       <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
         <span
           onClick={() => setIsEditModalOpen(true)}
-          className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
+          className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-white leading-tight'
         >
           <span
             aria-hidden='true'
-            className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
+            className='absolute inset-0 bg-blue-700 opacity-50 rounded-lg py-3'
           ></span>
-          <span className='relative'>Update</span>
+          <span className='relative '>Update</span>
         </span>
         <UpdateMedModal
 

@@ -10,6 +10,7 @@ import LoadingSpinner from '../../Component/Shared/LoadinSpinner';
 import axios from 'axios';
 import useRole from '../../Hooks/useRole';
 import useAuth from '../../Hooks/useAuth';
+import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 
 const MedDetails = () => {
   const [role] = useRole();
@@ -42,7 +43,7 @@ const MedDetails = () => {
       <Helmet>
         <title>{name}</title>
       </Helmet>
-      <div className="mx-auto  flex flex-col lg:flex-row justify-between w-full gap-12">
+      <div className="mx-auto pt-36  flex flex-col lg:flex-row justify-between w-full gap-12">
         {/* Header */}
         <div className="flex flex-col gap-6 flex-1">
           <div>
@@ -102,7 +103,7 @@ const MedDetails = () => {
           </div>
           <hr className="my-6" />
           <div className="flex justify-between">
-            <p className="font-bold text-3xl text-gray-500">Price: {price}$</p>
+            <p className="font-bold flex items-center gap-1 text-3xl text-gray-500">Price: {price}<FaBangladeshiTakaSign /></p>
             <div>
               <Button
                 disabled={
