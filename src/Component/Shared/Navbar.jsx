@@ -12,7 +12,7 @@ const Navbar = () => {
   const logo = '/public/image/tradenest.webp';
 
   return (
-    <div className="fixed w-[1280px] bg-gradient-to-r from-[#4B0082] to-[#008080] z-10 shadow-lg text-white">
+    <div className="fixed w-full bg-gradient-to-r from-[#4B0082] to-[#008080] z-10 shadow-lg text-white">
       <div className="py-3 border-b-[1px] border-gray-300">
         <Container>
           <div className="flex justify-between items-center gap-3 md:gap-0">
@@ -64,11 +64,11 @@ const Navbar = () => {
 
                 {/* Dropdown Menu */}
                 {isOpen && (
-                  <div className="absolute rounded-xl shadow-md w-[200px] bg-white overflow-hidden right-0 top-12 text-sm text-black">
+                  <div className="absolute rounded-xl shadow-md w-[200px] bg-[#fffff1] overflow-hidden right-0 top-12 text-sm text-black">
                     <div className="flex flex-col cursor-pointer">
                       <Link
                         to="/"
-                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                        className="px-4 py-3 hover:bg-neutral-200 transition font-semibold"
                       >
                         Home
                       </Link>
@@ -77,34 +77,41 @@ const Navbar = () => {
                         <>
                           <Link
                             to="/dashboard"
-                            className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                            className="px-4 py-3 hover:bg-neutral-200 transition font-semibold"
                           >
                             Dashboard
                           </Link>
                           <Link
                             to="/dashboard/update-profile"
-                            className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                            className="px-4 py-3 hover:bg-neutral-200 transition font-semibold"
                           >
                             Update Profile
                           </Link>
-                          <div
+                          <Link
+                            to="/"
+                            onClick={logOut}
+                            className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                          >
+                            Logout
+                          </Link>
+                          {/* <div
                             onClick={logOut}
                             className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
                           >
                             Logout
-                          </div>
+                          </div> */}
                         </>
                       ) : (
                         <>
                           <Link
                             to="/login"
-                            className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                            className="px-4 py-3 hover:bg-neutral-200 transition font-semibold"
                           >
                             Login
                           </Link>
                           <Link
                             to="/signup"
-                            className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                            className="px-4 py-3 hover:bg-neutral-200 transition font-semibold"
                           >
                             Sign Up
                           </Link>

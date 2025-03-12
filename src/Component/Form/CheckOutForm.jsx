@@ -1,5 +1,5 @@
 
-
+import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 import React, { useEffect, useState } from 'react';
 import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
 import './Checkoutform.css'
@@ -112,11 +112,12 @@ const CheckOutForm = ({ purchaseInfo, refetch, totalQuantity, closeModal }) => {
           },
         }}
       />
-      <div className='mt-3'>
+      <div className="mt-3">
         <Button
           type="submit"
           disabled={!stripe || !clientSecret || processing}
-          label={` Pay Total ${purchaseInfo?.price}$`} />
+          label={` Pay Total ${purchaseInfo?.price } tk`}
+        />
       </div>
     </form>
   );

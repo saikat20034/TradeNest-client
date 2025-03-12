@@ -10,7 +10,7 @@ const TermsCondition = () => {
         </p>
         <div className="mt-6 space-y-4">
           <p className="text-xl text-gray-800 font-semibold flex items-center gap-2">
-            ✅ <strong>Account Rules:</strong> Only students can register and
+            ✅ <strong>Account Rules:</strong> Only teacher's, students and university employee can register and
             trade.
           </p>
           <p className="text-xl text-gray-800 font-semibold flex items-center gap-2">

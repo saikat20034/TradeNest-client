@@ -36,7 +36,11 @@ export const Router = createBrowserRouter([
       },
       {
         path: '/medicine/:id',
-        element: <MedDetails />,
+        element: (
+          <PrivateRoute>
+             <MedDetails />
+          </PrivateRoute>
+         ) ,
       },
     ],
   },

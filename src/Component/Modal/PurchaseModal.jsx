@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 import {
   Dialog,
   Transition,
@@ -117,7 +118,7 @@ const handlePurchase = async () => {
                   Review Info Before Purchase
                 </DialogTitle>
                 <div className='mt-2'>
-                  <p className='text-sm text-gray-500'>Medicine : {name} </p>
+                  <p className='text-sm text-gray-500'>Product : {name} </p>
                 </div>
                 <div className='mt-2'>
                   <p className='text-sm text-gray-500'>Category: {category}</p>
@@ -127,7 +128,7 @@ const handlePurchase = async () => {
                 </div>
 
                 <div className='mt-2'>
-                  <p className='text-sm text-gray-500'>Price: $ {price}</p>
+                  <p className='text-sm flex items-center text-gray-500'>Price:  <FaBangladeshiTakaSign /> {price}</p>
                 </div>
                 <div className='mt-2'>
                   <p className='text-sm text-gray-500'>Available Quantity: {quantity}</p>
