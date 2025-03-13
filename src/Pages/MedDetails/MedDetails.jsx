@@ -78,12 +78,16 @@ const MedDetails = () => {
                 gap-2
               "
           >
-            <div>Seller: {seller?.name} </div>
-
+            <div>
+              <div className="text-base">
+                Seller: <span className='text-lg font-bold'>{seller?.name}</span>
+              </div>
+              <div className="text-sm">
+                Phone Number: <span className="text-lg">{seller?.phone}</span>
+              </div>
+            </div>
             <img
-              className="rounded-full"
-              height="30"
-              width="30"
+              className="rounded-full w-16 h-16 object-cover bg-bottom"
               alt="Avatar"
               referrerPolicy="no-referrer"
               src={seller.image}
@@ -103,7 +107,10 @@ const MedDetails = () => {
           </div>
           <hr className="my-6" />
           <div className="flex justify-between">
-            <p className="font-bold flex items-center gap-1 text-3xl text-gray-500">Price: {price}<FaBangladeshiTakaSign /></p>
+            <p className="font-bold flex items-center gap-1 text-3xl text-gray-500">
+              Price: {price}
+              <FaBangladeshiTakaSign />
+            </p>
             <div>
               <Button
                 disabled={

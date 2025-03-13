@@ -31,6 +31,10 @@ const Meds = () => {
 
   return (
     <Container>
+      <h2 className="text-center font-black text-3xl sm:text-4xl md:text-5xl mt-4">
+        Discover Our Best Deals
+      </h2>
+
       {medicines && medicines.length > 0 ? (
         <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-8">
           {medicines.map(medicine => (

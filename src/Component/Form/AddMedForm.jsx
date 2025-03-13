@@ -1,33 +1,43 @@
-import PropTypes from "prop-types";
-import { FaYinYang } from "react-icons/fa";
-import { useState } from "react";
+import PropTypes from 'prop-types';
+import { FaYinYang } from 'react-icons/fa';
+import { useState } from 'react';
+import useRole from '../../Hooks/useRole';
 
-const AddMedForm = ({ handleSubmit, uploadButtonText, setUploadButtonText, loading }) => {
+const AddMedForm = ({
+  handleSubmit,
+  uploadButtonText,
+  setUploadButtonText,
+  loading,
+}) => {
   const [previewImage, setPreviewImage] = useState(null);
+  const [role] = useRole();
+  const handleImageUpload = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const fileName = file.name;
+      const fileExtension = fileName.split('.').pop();
+      const fileNameWithoutExtension = fileName.slice(
+        0,
+        fileName.lastIndexOf('.')
+      );
+      const truncatedName =
+        fileNameWithoutExtension.length > 15
+          ? fileNameWithoutExtension.slice(0, 15) + '...'
+          : fileNameWithoutExtension;
 
-  const handleImageUpload = (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const fileName = file.name;
-    const fileExtension = fileName.split('.').pop();
-    const fileNameWithoutExtension = fileName.slice(0, fileName.lastIndexOf('.'));
-    const truncatedName = fileNameWithoutExtension.length > 15
-      ? fileNameWithoutExtension.slice(0, 15) + '...'
-      : fileNameWithoutExtension;
+      const finalName = `${truncatedName}.${fileExtension}`;
 
-    const finalName = `${truncatedName}.${fileExtension}`;
+      setUploadButtonText(finalName);
 
-    setUploadButtonText(finalName);
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setPreviewImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-  } else {
-    setPreviewImage(null);
-  }
-};
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPreviewImage(null);
+    }
+  };
 
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50">
@@ -174,6 +184,21 @@ const AddMedForm = ({ handleSubmit, uploadButtonText, setUploadButtonText, loadi
                 />
               </div>
             </div>
+            {role === 'seller' && (
+              <div className="space-y-1 text-sm">
+                <label htmlFor="phone" className="block text-gray-600">
+                  Phone Number
+                </label>
+                <input
+                  className="w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white"
+                  name="phone"
+                  id="phone"
+                  type="tel"
+                  placeholder="Phone Number"
+                  required
+                />
+              </div>
+            )}
             {/* Image */}
             <div className="p-4 w-full m-auto rounded-lg flex-grow">
               <div className="file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg">

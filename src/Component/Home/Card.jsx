@@ -5,6 +5,7 @@ import { FaBangladeshiTakaSign } from 'react-icons/fa6';
 const Card = ({ medicine }) => {
   const { name, category, quantity, price, image, _id } = medicine || {};
   return (
+
     <Link
       to={`/medicine/${_id}`}
       className="col-span-1 cursor-pointer group shadow-lg bg-white/50 backdrop-blur-lg p-3 rounded-2xl border border-gray-300 hover:shadow-2xl transition-transform duration-300 transform hover:-translate-y-2"
