@@ -43,14 +43,17 @@ const AddMed = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/medicines', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(medData),
-        credentials: 'include',
-      });
+      const response = await fetch(
+        'https://trade-nest-server.vercel.app//medicines',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(medData),
+          credentials: 'include',
+        }
+      );
 
       if (response.ok) {
         toast.success('Data Added Successfully.');

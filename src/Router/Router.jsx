@@ -23,6 +23,7 @@ import PrivacyPolicy from '../Pages/PrivacyPolicy'
 import PressKit from '../Pages/PressKitt'
 import TermsCondition from '../Pages/TearmsCondition'
 import ContactUs from '../Pages/Contact'
+import SearchResults from '../Pages/SearchResults';
 
 export const Router = createBrowserRouter([
   {
@@ -131,6 +132,7 @@ export const Router = createBrowserRouter([
   },
   { path: 'about-us', element: <AboutUs></AboutUs> },
   { path: 'contact', element: <ContactUs></ContactUs> },
+  {path :'search-result',element:<SearchResults></SearchResults>},
 
   { path: 'jobs', element: <Jobs></Jobs> },
   { path: 'press-kit', element: <PressKit></PressKit> },
