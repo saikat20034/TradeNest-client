@@ -3,7 +3,7 @@ import {
   AiOutlineShoppingCart,
   AiOutlineSearch,
 } from 'react-icons/ai';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from './Container';
 import useAuth from '../../Hooks/useAuth';
@@ -15,9 +15,20 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
   const avatarImg =
     'https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg';
   const logo = '/image/tradenest.webp';
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   const handleSearch = async () => {
     try {
@@ -47,44 +58,45 @@ const Navbar = () => {
     setSearchTerm(item.name);
     setShowDropdown(false);
   };
+
   return (
-    <div className="fixed w-full bg-gradient-to-r from-[#4B0082] to-[#008080] z-10 shadow-lg text-white">
-      <div className="py-3 border-b border-gray-300">
+    <div className="fixed w-full z-50 bg-base-100 shadow-md">
+      <div className="py-2 border-b border-base-300">
         <Container>
           <div className="flex justify-between items-center gap-4 flex-wrap">
-            {/* Logo */}
+            {/* Left: Logo */}
             <Link to="/">
               <img
                 src={logo}
                 alt="logo"
-                className="w-12 h-12 rounded-full border-2 border-white shadow-md"
+                className="w-12 h-12 rounded-full border shadow"
               />
             </Link>
 
-            {/* Search Bar + Icon */}
-            <div className="flex-grow max-w-md relative">
+            {/* Center: Search */}
+            <div className="flex-grow max-w-md relative hidden md:block">
               <input
                 type="text"
                 value={searchTerm}
                 onChange={handleChange}
                 placeholder="Search products..."
-                className="w-full px-4 py-2 rounded-md text-black focus:outline-none focus:ring focus:ring-indigo-300 pr-10"
+                className="w-full px-4 py-2 rounded-md input input-bordered pr-10"
               />
               <button
-                onClick={() => handleSearch(searchTerm)}
-                className="absolute right-2 top-2.5 text-gray-600 hover:text-indigo-600"
+                onClick={handleSearch}
+                className="absolute right-2 top-2.5 text-gray-600 dark:text-gray-300"
               >
                 <AiOutlineSearch size={20} />
               </button>
 
               {/* Dropdown */}
               {showDropdown && results.length > 0 && (
-                <ul className="absolute z-10 w-full bg-white text-black border border-gray-300 mt-1 rounded-md shadow-md max-h-60 overflow-y-auto">
+                <ul className="absolute z-20 w-full bg-base-100 border border-base-300 mt-1 rounded-md shadow max-h-60 overflow-y-auto">
                   {results.map(item => (
                     <Link to={`/medicine/${item._id}`} key={item._id}>
                       <li
                         onClick={() => handleSelect(item)}
-                        className="px-4 py-2 hover:bg-indigo-100 cursor-pointer flex gap-5 items-center"
+                        className="px-4 py-2 hover:bg-base-200 cursor-pointer flex gap-5 items-center"
                       >
                         <img
                           className="w-12"
@@ -92,8 +104,8 @@ const Navbar = () => {
                           alt={item.name}
                         />
                         <div>
-                          <p> {item.name}</p>
-                          <p>{item.price}</p>
+                          <p>{item.name}</p>
+                          <p className="text-sm text-gray-500">${item.price}</p>
                         </div>
                       </li>
                     </Link>
@@ -102,8 +114,42 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Right Side */}
+            {/* Right: Nav links & user */}
             <div className="flex items-center gap-4">
+              {/* Theme Toggle */}
+              <label className="swap swap-rotate">
+                <input
+                  type="checkbox"
+                  onChange={toggleTheme}
+                  checked={theme === 'dark'}
+                />
+                <svg
+                  className="swap-on fill-current w-6 h-6"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M5.64 17.64A9 9 0 0112 3v9h9a9 9 0 01-15.36 5.64z" />
+                </svg>
+                <svg
+                  className="swap-off fill-current w-6 h-6"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M21.64 13A9 9 0 0111 3a9 9 0 000 18 9 9 0 0010.64-8z" />
+                </svg>
+              </label>
+
+              {/* Nav Links */}
+              <div className="hidden md:flex gap-4 text-sm font-medium">
+                <Link to="/" className="hover:text-primary">
+                  Home
+                </Link>
+                <Link to="/about-us" className="hover:text-primary">
+                  About
+                </Link>
+                <Link to="/contact" className="hover:text-primary">
+                  Contact
+                </Link>
+              </div>
+
               {/* Cart */}
               <Link to="/cart" className="relative hover:scale-105 transition">
                 <AiOutlineShoppingCart size={24} />
@@ -116,61 +162,54 @@ const Navbar = () => {
               <div className="relative">
                 <div
                   onClick={() => setIsOpen(!isOpen)}
-                  className="p-2 border flex items-center gap-2 rounded-full cursor-pointer hover:shadow-md transition border-white"
+                  className="p-2 border flex items-center gap-2 rounded-full cursor-pointer hover:shadow transition"
                 >
                   <AiOutlineMenu />
                   <img
-                    className="rounded-full border-2 border-white"
-                    referrerPolicy="no-referrer"
+                    className="rounded-full w-8 h-8 border"
                     src={user?.photoURL || avatarImg}
                     alt="profile"
-                    height="30"
-                    width="30"
                   />
                 </div>
 
                 {isOpen && (
-                  <div className="absolute right-0 top-12 w-[200px] bg-[#fffff1] text-black rounded-xl shadow-md text-sm overflow-hidden">
-                    <div className="flex flex-col cursor-pointer">
-                      <Link
-                        to="/"
-                        className="px-4 py-3 hover:bg-neutral-200 font-semibold"
-                      >
+                  <div className="absolute right-0 top-12 w-48 bg-base-100 text-base-content rounded-xl shadow-lg text-sm">
+                    <div className="flex flex-col">
+                      <Link to="/" className="px-4 py-3 hover:bg-base-200">
                         Home
                       </Link>
                       {user ? (
                         <>
                           <Link
                             to="/dashboard"
-                            className="px-4 py-3 hover:bg-neutral-200 font-semibold"
+                            className="px-4 py-3 hover:bg-base-200"
                           >
                             Dashboard
                           </Link>
                           <Link
                             to="/dashboard/update-profile"
-                            className="px-4 py-3 hover:bg-neutral-200 font-semibold"
+                            className="px-4 py-3 hover:bg-base-200"
                           >
                             Update Profile
                           </Link>
-                          <Link
-                            to="/"
+                          <button
                             onClick={logOut}
-                            className="px-4 py-3 hover:bg-neutral-200 font-semibold"
+                            className="px-4 py-3 hover:bg-base-200 text-left"
                           >
                             Logout
-                          </Link>
+                          </button>
                         </>
                       ) : (
                         <>
                           <Link
                             to="/login"
-                            className="px-4 py-3 hover:bg-neutral-200 font-semibold"
+                            className="px-4 py-3 hover:bg-base-200"
                           >
                             Login
                           </Link>
                           <Link
                             to="/signup"
-                            className="px-4 py-3 hover:bg-neutral-200 font-semibold"
+                            className="px-4 py-3 hover:bg-base-200"
                           >
                             Sign Up
                           </Link>
@@ -181,6 +220,17 @@ const Navbar = () => {
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Mobile search bar */}
+          <div className="block md:hidden mt-3">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleChange}
+              placeholder="Search..."
+              className="w-full input input-bordered"
+            />
           </div>
         </Container>
       </div>
