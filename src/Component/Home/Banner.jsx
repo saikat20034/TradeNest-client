@@ -1,6 +1,8 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import { motion } from 'framer-motion';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -42,6 +44,35 @@ const slides = [
   },
 ];
 
+const wordAnimation = {
+  hidden: { opacity: 0, y: 10 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.15, duration: 0.5 },
+  }),
+};
+
+const AnimatedText = ({ text, className }) => {
+  const words = text.split(' ');
+  return (
+    <p className={`${className} flex flex-wrap gap-1`}>
+      {words.map((word, i) => (
+        <motion.span
+          key={i}
+          custom={i}
+          initial="hidden"
+          animate="visible"
+          variants={wordAnimation}
+          className="inline-block"
+        >
+          {word}
+        </motion.span>
+      ))}
+    </p>
+  );
+};
+
 const Banner = () => {
   return (
     <Swiper
@@ -59,15 +90,43 @@ const Banner = () => {
     >
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>
-          <div className="relative w-full h-screen">
+          <div
+            className="
+              relative
+              w-full
+              h-[60vh] md:h-[450px] lg:h-[550px] max-h-[600px]
+              sm:h-[40vh]
+              overflow-hidden
+            "
+          >
             <img
               src={slide.image}
               alt={slide.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute bottom-10 left-10 md:left-16 text-white max-w-xl bg-black/50 p-4 md:p-6 rounded-lg shadow-lg backdrop-blur-sm">
-              <h2 className="text-2xl md:text-4xl font-bold">{slide.title}</h2>
-              <p className="mt-2 text-sm md:text-lg">{slide.description}</p>
+            <div
+              className="
+                absolute
+                bottom-6
+                left-5 md:left-16
+                max-w-xl
+                bg-black/50
+                p-4 md:p-6
+                rounded-lg
+                shadow-lg
+                backdrop-blur-sm
+                text-white
+              "
+            >
+              <motion.h2
+                className="text-xl md:text-3xl font-bold mb-2 leading-tight"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                {slide.title}
+              </motion.h2>
+              <AnimatedText text={slide.description} className="text-xs md:text-base" />
             </div>
           </div>
         </SwiperSlide>
