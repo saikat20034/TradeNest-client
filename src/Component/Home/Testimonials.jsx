@@ -53,10 +53,10 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-16 mt-10 mb-10 rounded-md bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+    <section className="py-16 mt-10 mb-10 rounded-md bg-gradient-to-r from-blue-50 to-indigo-100 text-black shadow-lg">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold mt-10">🌟 What Students Say</h2>
-        <p className="mt-3 text-lg text-gray-200">
+        <p className="mt-3 text-lg text-gray-800">
           Hear from students who used our platform to buy & sell products
           easily!
         </p>
@@ -79,11 +79,11 @@ const TestimonialsSection = () => {
                   alt={user.name}
                   className="w-16 h-16 mx-auto rounded-full border-4 border-white"
                 />
-                <p className="mt-4 text-lg font-medium text-gray-200">
+                <p className="mt-4 text-lg font-medium text-gray-800">
                   "{user.review}"
                 </p>
                 <h4 className="mt-4 text-xl font-semibold">{user.name}</h4>
-                <p className="text-gray-300 text-sm">{user.role}</p>
+                <p className="text-gray-800 text-sm">{user.role}</p>
               </div>
             ))}
           </motion.div>

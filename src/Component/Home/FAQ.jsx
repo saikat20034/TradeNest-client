@@ -27,12 +27,12 @@ const FAQSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+    <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-100 text-gray-900 mb-10 rounded-md shadow-lg">
       <div className="max-w-4xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center">
           🤔 Frequently Asked Questions
         </h2>
-        <p className="text-center text-gray-200 mt-3">
+        <p className="text-center text-gray-700 mt-3">
           Everything you need to know about using our platform!
         </p>
         <div className="mt-8 space-y-4">
@@ -49,7 +49,7 @@ const FAQItem = ({ faq }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className='rounded-md'>
+    <div className="rounded-md">
       <motion.div
         layout
         className="p-5 bg-white rounded-lg shadow-md transition-all duration-300 cursor-pointer hover:shadow-xl"
@@ -58,9 +58,9 @@ const FAQItem = ({ faq }) => {
         <motion.div layout className="flex items-center justify-between">
           <h3 className="font-semibold text-lg text-gray-800">{faq.q}</h3>
           {isOpen ? (
-            <ChevronUp size={24} className="text-indigo-600" />
+            <ChevronUp size={24} className="text-red-500" />
           ) : (
-            <ChevronDown size={24} className="text-indigo-600" />
+            <ChevronDown size={24} className="text-red-500" />
           )}
         </motion.div>
 

@@ -32,7 +32,7 @@ const offers = [
 
 const OfferSlider = () => {
   return (
-    <div className="bg-gray-100 py-10">
+    <div className="bg-gradient-to-r from-blue-50 to-indigo-100 mt-10 mb-10 rounded-md shadow-lg py-10">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">
           Special Offers

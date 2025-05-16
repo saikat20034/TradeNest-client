@@ -35,7 +35,7 @@ const HowToUse = () => {
   ];
 
   return (
-    <section className="py-12 bg-gray-100 text-center">
+    <section className="py-12 bg-gradient-to-r from-blue-50 to-indigo-100 text-center rounded-md shadow-lg">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-gray-800 mb-6">How to Use</h2>
         <p className="text-gray-600 mb-10 max-w-2xl mx-auto">

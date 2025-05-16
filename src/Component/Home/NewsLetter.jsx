@@ -22,7 +22,7 @@ const NewsletterSection = () => {
 
   return (
     <section className="mt-10 px-6">
-      <div className="max-w-4xl mx-auto bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-12 rounded-md shadow-lg">
+      <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-50 to-indigo-100 text-black text-center py-12 rounded-md shadow-lg">
         <motion.h2
           className="text-4xl font-bold mb-4"
           initial={{ opacity: 0, y: -20 }}
@@ -31,7 +31,7 @@ const NewsletterSection = () => {
         >
           📩 Subscribe to Our Newsletter
         </motion.h2>
-        <p className="text-lg text-gray-200 mb-6">
+        <p className="text-lg text-gray-800 mb-6">
           Stay updated with our latest news, offers, and exclusive content!
         </p>
 
