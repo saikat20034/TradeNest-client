@@ -91,7 +91,7 @@ const Banner = () => {
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>
           <div
-            className="
+            className=" 
               relative
               w-full
               h-[60vh] md:h-[450px] lg:h-[550px] max-h-[600px]

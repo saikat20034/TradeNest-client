@@ -1,13 +1,14 @@
 import {
-  AiOutlineMenu,
   AiOutlineShoppingCart,
   AiOutlineSearch,
+  AiOutlineCamera,
 } from 'react-icons/ai';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from './Container';
 import useAuth from '../../Hooks/useAuth';
 import axios from 'axios';
+import Webcam from 'react-webcam';
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -16,6 +17,8 @@ const Navbar = () => {
   const [results, setResults] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [showCamera, setShowCamera] = useState(false);
+  const webcamRef = useRef(null);
 
   const avatarImg =
     'https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg';
@@ -59,12 +62,28 @@ const Navbar = () => {
     setShowDropdown(false);
   };
 
+  const captureAndSearch = async () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    if (imageSrc) {
+      try {
+        const res = await axios.post('http://localhost:5000/api/image-search', {
+          image: imageSrc,
+        });
+        setResults(res.data);
+        setShowDropdown(true);
+      } catch (error) {
+        console.error('AI Image search failed:', error);
+      }
+    }
+    setShowCamera(false);
+  };
+
   return (
     <div className="fixed w-full z-50 bg-base-100 shadow-md">
       <div className="py-2 border-b border-base-300">
         <Container>
           <div className="flex justify-between items-center gap-4 flex-wrap">
-            {/* Left: Logo */}
+            {/* Logo */}
             <Link to="/">
               <img
                 src={logo}
@@ -74,7 +93,7 @@ const Navbar = () => {
             </Link>
 
             {/* Center: Search */}
-            <div className="flex-grow max-w-md relative hidden md:block">
+            <div className="flex-grow max-w-md relative hidden md:flex items-center">
               <input
                 type="text"
                 value={searchTerm}
@@ -84,12 +103,17 @@ const Navbar = () => {
               />
               <button
                 onClick={handleSearch}
-                className="absolute right-2 top-2.5 text-gray-600 dark:text-gray-300"
+                className="absolute right-8 top-2.5 text-gray-600"
               >
                 <AiOutlineSearch size={20} />
               </button>
+              <button
+                onClick={() => setShowCamera(true)}
+                className="absolute right-0 top-2.5 text-gray-600"
+              >
+                <AiOutlineCamera size={20} />
+              </button>
 
-              {/* Dropdown */}
               {showDropdown && results.length > 0 && (
                 <ul className="absolute z-20 w-full bg-base-100 border border-base-300 mt-1 rounded-md shadow max-h-60 overflow-y-auto">
                   {results.map(item => (
@@ -114,7 +138,7 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Right: Nav links & user */}
+            {/* Right Side */}
             <div className="flex items-center gap-4">
               {/* Theme Toggle */}
               <label className="swap swap-rotate">
@@ -158,72 +182,66 @@ const Navbar = () => {
                 </span>
               </Link>
 
-              {/* Profile Dropdown */}
-              <div className="relative">
-                <div
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="p-2 border flex items-center gap-2 rounded-full cursor-pointer hover:shadow transition"
-                >
-                  <AiOutlineMenu />
-                  <img
-                    className="rounded-full w-8 h-8 border"
-                    src={user?.photoURL || avatarImg}
-                    alt="profile"
-                  />
+              {/* Auth Buttons or Profile */}
+              {!user ? (
+                <div className="flex gap-2">
+                  <Link
+                    to="/login"
+                    className="btn btn-sm btn-outline hover:btn-primary"
+                  >
+                    Login
+                  </Link>
+                  <Link to="/signup" className="btn btn-sm btn-primary">
+                    Sign Up
+                  </Link>
                 </div>
-
-                {isOpen && (
-                  <div className="absolute right-0 top-12 w-48 bg-base-100 text-base-content rounded-xl shadow-lg text-sm">
-                    <div className="flex flex-col">
-                      <Link to="/" className="px-4 py-3 hover:bg-base-200">
-                        Home
-                      </Link>
-                      {user ? (
-                        <>
-                          <Link
-                            to="/dashboard"
-                            className="px-4 py-3 hover:bg-base-200"
-                          >
-                            Dashboard
-                          </Link>
-                          <Link
-                            to="/dashboard/update-profile"
-                            className="px-4 py-3 hover:bg-base-200"
-                          >
-                            Update Profile
-                          </Link>
-                          <button
-                            onClick={logOut}
-                            className="px-4 py-3 hover:bg-base-200 text-left"
-                          >
-                            Logout
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <Link
-                            to="/login"
-                            className="px-4 py-3 hover:bg-base-200"
-                          >
-                            Login
-                          </Link>
-                          <Link
-                            to="/signup"
-                            className="px-4 py-3 hover:bg-base-200"
-                          >
-                            Sign Up
-                          </Link>
-                        </>
-                      )}
-                    </div>
+              ) : (
+                <div className="relative">
+                  <div
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="p-2 border flex items-center gap-2 rounded-full cursor-pointer hover:shadow transition"
+                  >
+                    <img
+                      className="rounded-full w-8 h-8 border"
+                      src={user?.photoURL || avatarImg}
+                      alt="profile"
+                    />
                   </div>
-                )}
-              </div>
+
+                  {isOpen && (
+                    <div className="absolute right-0 top-12 w-48 bg-base-100 text-base-content rounded-xl shadow-lg text-sm">
+                      <div className="flex flex-col">
+                        <Link to="/" className="px-4 py-3 hover:bg-base-200">
+                          Home
+                        </Link>
+                        <Link
+                          to="/dashboard"
+                          className="px-4 py-3 hover:bg-base-200"
+                        >
+                          Dashboard
+                        </Link>
+                        <Link
+                          to="/dashboard/update-profile"
+                          className="px-4 py-3 hover:bg-base-200"
+                        >
+                          Update Profile
+                        </Link>
+                        <button
+                          onClick={logOut}
+                          className="px-4 py-3 hover:bg-base-200 text-left"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Mobile search bar */}
-          <div className="block md:hidden mt-3">
+          {/* Mobile Search Bar */}
+          <div className="block md:hidden mt-3 flex gap-2 items-center">
             <input
               type="text"
               value={searchTerm}
@@ -231,9 +249,37 @@ const Navbar = () => {
               placeholder="Search..."
               className="w-full input input-bordered"
             />
+            <button onClick={() => setShowCamera(true)}>
+              <AiOutlineCamera size={24} />
+            </button>
           </div>
         </Container>
       </div>
+
+      {/* Camera Modal */}
+      {showCamera && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
+          <div className="bg-base-100 p-4 rounded-md text-center">
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              className="w-full max-w-sm mx-auto rounded-md"
+            />
+            <div className="flex justify-center gap-4 mt-4">
+              <button className="btn btn-primary" onClick={captureAndSearch}>
+                Capture & Search
+              </button>
+              <button
+                className="btn btn-error"
+                onClick={() => setShowCamera(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

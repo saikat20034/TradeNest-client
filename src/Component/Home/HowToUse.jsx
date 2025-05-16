@@ -5,32 +5,38 @@ import {
   FaShoppingCart,
   FaHandshake,
 } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const HowToUse = () => {
+  const navigate = useNavigate();
+
   const steps = [
     {
       icon: <FaUserPlus className="text-5xl text-blue-500" />,
       title: 'Create an Account',
       description:
         'Sign up and set up your profile to start buying and selling.',
+      path: '/create-account', // target path for this step
     },
     {
       icon: <FaUpload className="text-5xl text-green-500" />,
       title: 'Post Your Item',
       description:
         'Upload product details, images, and set a price for selling.',
+      path: '/post-your-items',
     },
     {
       icon: <FaShoppingCart className="text-5xl text-yellow-500" />,
       title: 'Browse & Buy',
       description:
         'Explore listed products and contact sellers to make purchases.',
+      path: '/browse',
     },
     {
       icon: <FaHandshake className="text-5xl text-red-500" />,
       title: 'Complete the order',
-      description:
-        'Complete the order with safe transaction.',
+      description: 'Complete the order with safe transaction.',
+      path: '/complete-order',
     },
   ];
 
@@ -45,7 +51,13 @@ const HowToUse = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-lg shadow-md text-center"
+              onClick={() => navigate(step.path)}
+              className="bg-white p-6 rounded-lg shadow-md text-center cursor-pointer hover:shadow-xl transition-shadow duration-300"
+              role="button"
+              tabIndex={0}
+              onKeyPress={e => {
+                if (e.key === 'Enter') navigate(step.path);
+              }}
             >
               <div className="mb-4">{step.icon}</div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">

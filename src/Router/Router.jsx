@@ -24,6 +24,8 @@ import PressKit from '../Pages/PressKitt'
 import TermsCondition from '../Pages/TearmsCondition'
 import ContactUs from '../Pages/Contact'
 import SearchResults from '../Pages/SearchResults';
+import CreateAccount from '../Component/CreateAccount/CreateAccount';
+import PostYourItem from '../Component/PostYourItem/PostYourItem';
 
 export const Router = createBrowserRouter([
   {
@@ -39,9 +41,9 @@ export const Router = createBrowserRouter([
         path: '/medicine/:id',
         element: (
           <PrivateRoute>
-             <MedDetails />
+            <MedDetails />
           </PrivateRoute>
-         ) ,
+        ),
       },
     ],
   },
@@ -132,8 +134,9 @@ export const Router = createBrowserRouter([
   },
   { path: 'about-us', element: <AboutUs></AboutUs> },
   { path: 'contact', element: <ContactUs></ContactUs> },
-  {path :'search-result',element:<SearchResults></SearchResults>},
-
+  { path: 'search-result', element: <SearchResults></SearchResults> },
+  { path: 'create-account', element: <CreateAccount></CreateAccount> },
+  { path: 'post-your-items', element: <PostYourItem></PostYourItem>},
   { path: 'jobs', element: <Jobs></Jobs> },
   { path: 'press-kit', element: <PressKit></PressKit> },
   { path: 'privacy-policy', element: <PrivacyPolicy></PrivacyPolicy> },
