@@ -30,7 +30,7 @@ const HowToUse = () => {
       title: 'Browse & Buy',
       description:
         'Explore listed products and contact sellers to make purchases.',
-      path: '/browse',
+      path: '/browse-buy',
     },
     {
       icon: <FaHandshake className="text-5xl text-red-500" />,

@@ -26,6 +26,9 @@ import ContactUs from '../Pages/Contact'
 import SearchResults from '../Pages/SearchResults';
 import CreateAccount from '../Component/CreateAccount/CreateAccount';
 import PostYourItem from '../Component/PostYourItem/PostYourItem';
+import BrowseBuyInfoPage from '../Component/BrowseBuyInfoPage/BrowseBuyInfoPage';
+import Meds from '../Component/Home/Meds';
+import CompleteOrderPage from '../Component/CompleteOrderPage/CompleteOrderPage';
 
 export const Router = createBrowserRouter([
   {
@@ -133,12 +136,16 @@ export const Router = createBrowserRouter([
     ],
   },
   { path: 'about-us', element: <AboutUs></AboutUs> },
+  { path: 'buy-now', element: <Meds></Meds> },
+
   { path: 'contact', element: <ContactUs></ContactUs> },
   { path: 'search-result', element: <SearchResults></SearchResults> },
   { path: 'create-account', element: <CreateAccount></CreateAccount> },
-  { path: 'post-your-items', element: <PostYourItem></PostYourItem>},
+  { path: 'post-your-items', element: <PostYourItem></PostYourItem> },
   { path: 'jobs', element: <Jobs></Jobs> },
   { path: 'press-kit', element: <PressKit></PressKit> },
   { path: 'privacy-policy', element: <PrivacyPolicy></PrivacyPolicy> },
   { path: 'terms-of-service', element: <TermsCondition></TermsCondition> },
+  { path: 'browse-buy', element: <BrowseBuyInfoPage></BrowseBuyInfoPage> },
+  { path: 'complete-order', element:<CompleteOrderPage></CompleteOrderPage> },
 ]);

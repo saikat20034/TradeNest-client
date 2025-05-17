@@ -1,125 +1,146 @@
-
-import { FaBangladeshiTakaSign } from 'react-icons/fa6';
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
-import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
-import './Checkoutform.css'
-import Button from '../Shared/Button';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import Button from '../Shared/Button';
+import './Checkoutform.css';
 
 const CheckOutForm = ({ purchaseInfo, refetch, totalQuantity, closeModal }) => {
-  const navigate = useNavigate()
-  const axiosSecure = useAxiosSecure()
-  const [clientSecret, setClientSecret] = useState('')
-  const [processing, setProcessing]=useState(false)
+  const stripe = useStripe();
+  const elements = useElements();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
+  const [clientSecret, setClientSecret] = useState('');
+  const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
-    getPaymentIntent()
-  }, [purchaseInfo])
-  const getPaymentIntent = async () => {
+    if (purchaseInfo) {
+      createPaymentIntent();
+    }
+  }, [purchaseInfo]);
+
+  const createPaymentIntent = async () => {
     try {
       const { data } = await axiosSecure.post('/create-payment-intent', {
         quantity: purchaseInfo?.quantity,
-        medId: purchaseInfo?.medId
-      })
-      setClientSecret(data.clientSecret)
-      console.log(clientSecret);
-    } catch (err) {
-      console.log(err);
+        medId: purchaseInfo?.medId,
+      });
+      setClientSecret(data.clientSecret);
+    } catch (error) {
+      toast.error('Failed to initialize payment.');
+      console.error(error);
     }
-  }
-  const stripe = useStripe();
-  const elements = useElements();
+  };
 
-  const handleSubmit = async (event) => {
-    // Block native form submission.
-    setProcessing(true)
+  const handleSubmit = async event => {
     event.preventDefault();
+    setProcessing(true);
 
     if (!stripe || !elements) {
-
+      toast.error('Stripe is not loaded.');
+      setProcessing(false);
       return;
     }
 
     const card = elements.getElement(CardElement);
-
-    if (card == null) {
-      setProcessing(false)
+    if (!card) {
+      toast.error('Card element not found.');
+      setProcessing(false);
       return;
     }
 
-    // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error: methodError } = await stripe.createPaymentMethod({
       type: 'card',
       card,
     });
 
-    if (error) {
-      setProcessing(false)
-      console.log('[error]', error);
-    } else {
-      console.log('[PaymentMethod]', paymentMethod);
+    if (methodError) {
+      toast.error(methodError.message);
+      setProcessing(false);
+      return;
     }
-    // confirm payment
-    const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: card,
-        billing_details: {
-          name: purchaseInfo?.customer?.name,
-          email: purchaseInfo?.customer?.email
-        }
-      }
-    })
-    if (paymentIntent.status === 'succeeded') {
+
+    const { error: confirmError, paymentIntent } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card,
+          billing_details: {
+            name: purchaseInfo?.customer?.name || 'Test User',
+            email: purchaseInfo?.customer?.email || 'test@example.com',
+          },
+        },
+      });
+
+    if (confirmError) {
+      toast.error(confirmError.message);
+      setProcessing(false);
+      return;
+    }
+
+    if (paymentIntent?.status === 'succeeded') {
       try {
-        axiosSecure.post('/order', { ...purchaseInfo, transactionId: paymentIntent?.id })
-        // decrease medicine count
-        axiosSecure.patch(`/medicines/quantity/${purchaseInfo?.medId}`, {
+        await axiosSecure.post('/order', {
+          ...purchaseInfo,
+          transactionId: paymentIntent.id,
+        });
+
+        await axiosSecure.patch(`/medicines/quantity/${purchaseInfo?.medId}`, {
           quantityToUpdate: totalQuantity,
           status: 'decrease',
-        })
-        toast.success('Order Successful')
-        refetch()
-        navigate('/dashboard/my-orders')
+        });
+
+        toast.success('Test Payment Successful!');
+        refetch();
+        navigate('/dashboard/my-orders');
+      } catch (err) {
+        toast.error('Failed to store test order.');
+        console.error(err);
+      } finally {
+        setProcessing(false);
+        closeModal();
       }
-      catch (err) {
-        console.log(err);
-      }
-      finally {
-        setProcessing(false)
-        closeModal()
-      }
+    } else {
+      toast.error('Payment was not successful.');
+      setProcessing(false);
     }
-    // console.log(data);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="space-y-4">
       <CardElement
         options={{
           style: {
             base: {
               fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
-              },
+              color: '#374151',
+              '::placeholder': { color: '#a0aec0' },
             },
-            invalid: {
-              color: '#9e2146',
-            },
+            invalid: { color: '#e53e3e' },
           },
         }}
       />
-      <div className="mt-3">
+      <div className="mt-2 text-sm text-gray-500 bg-gray-100 rounded-lg p-3">
+        💳 <strong>Use Test Card:</strong> 4242 4242 4242 4242
+        <br />
+        📆 Exp: Any future date
+        <br />
+        🔒 CVC: Any 3 digits
+        <br />
+        🧾 ZIP: Any 5 digits
+      </div>
+      <div>
         <Button
           type="submit"
           disabled={!stripe || !clientSecret || processing}
-          label={` Pay Total ${purchaseInfo?.price } tk`}
+          label={
+            processing ? 'Processing...' : `Pay Total ${purchaseInfo?.price} ৳`
+          }
         />
       </div>
     </form>
   );
 };
+
 export default CheckOutForm;
