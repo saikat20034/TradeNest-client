@@ -175,12 +175,12 @@ const Navbar = () => {
               </div>
 
               {/* Cart */}
-              <Link to="/cart" className="relative hover:scale-105 transition">
+              {/* <Link to="/cart" className="relative hover:scale-105 transition">
                 <AiOutlineShoppingCart size={24} />
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
                   0
                 </span>
-              </Link>
+              </Link> */}
 
               {/* Auth Buttons or Profile */}
               {!user ? (

@@ -35,19 +35,19 @@ const TermsCondition = () => {
           <p className="text-xl text-gray-800 font-semibold">
             Inside Tangail:{' '}
             <span className="text-yellow-600 font-bold">
-              60 TK Delivery Charge
+              50 TK Delivery Charge
             </span>
           </p>
-          <p className="text-xl text-gray-800 font-semibold">
+          {/* <p className="text-xl text-gray-800 font-semibold">
             Inside Dhaka Division:{' '}
             <span className="text-blue-600 font-bold">
               100 TK Delivery Charge
             </span>
-          </p>
+          </p> */}
           <p className="text-xl text-gray-800 font-semibold">
             All Over Bangladesh:{' '}
             <span className="text-red-600 font-bold">
-              150 TK Delivery Charge
+              110 TK Delivery Charge
             </span>
           </p>
         </div>

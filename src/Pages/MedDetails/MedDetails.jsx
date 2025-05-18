@@ -16,6 +16,7 @@ const MedDetails = () => {
   const [role] = useRole();
   const { user } = useAuth();
   let [isOpen, setIsOpen] = useState(false);
+  const [seeMore, setSeeMore] = useState(false);
   const { id } = useParams();
   const {
     data: medicine = {},
@@ -36,7 +37,7 @@ const MedDetails = () => {
   };
   const { name, category, description, image, price, quantity, seller } =
     medicine;
-  // console.log(medicine);
+
   if (isLoading) return <LoadingSpinner />;
   return (
     <Container>
@@ -49,7 +50,7 @@ const MedDetails = () => {
           <div>
             <div className="w-full overflow-hidden rounded-xl">
               <img
-                className="object-cover w-full"
+                className="object-cover w-full h-[400px]" // Fixed height added
                 src={image}
                 alt="header image"
               />
@@ -60,27 +61,25 @@ const MedDetails = () => {
           {/* Medicine Info */}
           <Heading title={name} subtitle={`Category: ${category}`} />
           <hr className="my-6" />
-          <div
-            className="
-          text-lg font-light text-neutral-500"
-          >
-            {description}
+          <div className="text-lg font-light text-neutral-500">
+            {seeMore || description.length <= 300
+              ? description
+              : `${description.slice(0, 300)}...`}
+            {description.length > 300 && (
+              <button
+                onClick={() => setSeeMore(!seeMore)}
+                className="text-blue-600 ml-2 underline text-sm"
+              >
+                {seeMore ? 'See Less' : 'See More'}
+              </button>
+            )}
           </div>
           <hr className="my-6" />
-
-          <div
-            className="
-                text-xl
-                font-semibold
-                flex
-                flex-row
-                items-center
-                gap-2
-              "
-          >
+          <div className="text-xl font-semibold flex flex-row items-center gap-2">
             <div>
               <div className="text-base">
-                Seller: <span className='text-lg font-bold'>{seller?.name}</span>
+                Seller:{' '}
+                <span className="text-lg font-bold">{seller?.name}</span>
               </div>
               <div className="text-sm">
                 Phone Number: <span className="text-lg">{seller?.phone}</span>
@@ -95,13 +94,7 @@ const MedDetails = () => {
           </div>
           <hr className="my-6" />
           <div>
-            <p
-              className="
-                gap-4
-                font-light
-                text-neutral-500
-              "
-            >
+            <p className="gap-4 font-light text-neutral-500">
               Quantity: {quantity} Units Left Only!
             </p>
           </div>
@@ -125,7 +118,6 @@ const MedDetails = () => {
             </div>
           </div>
           <hr className="my-6" />
-
           <PurchaseModal
             medicine={medicine}
             closeModal={closeModal}

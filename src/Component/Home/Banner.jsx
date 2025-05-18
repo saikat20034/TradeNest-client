@@ -46,7 +46,7 @@ const slides = [
 
 const wordAnimation = {
   hidden: { opacity: 0, y: 10 },
-  visible: (i) => ({
+  visible: i => ({
     opacity: 1,
     y: 0,
     transition: { delay: i * 0.15, duration: 0.5 },
@@ -91,7 +91,7 @@ const Banner = () => {
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>
           <div
-            className=" 
+            className="
               relative
               w-full
               h-[60vh] md:h-[450px] lg:h-[550px] max-h-[600px]
@@ -102,7 +102,7 @@ const Banner = () => {
             <img
               src={slide.image}
               alt={slide.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-b-lg"
             />
             <div
               className="
@@ -126,7 +126,10 @@ const Banner = () => {
               >
                 {slide.title}
               </motion.h2>
-              <AnimatedText text={slide.description} className="text-xs md:text-base" />
+              <AnimatedText
+                text={slide.description}
+                className="text-xs md:text-base"
+              />
             </div>
           </div>
         </SwiperSlide>
