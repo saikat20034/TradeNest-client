@@ -9,7 +9,7 @@ By bridging the gap between student needs and student-owned resources, TradeNest
 ## 🌐 Live Demo
 
 👉 [Visit TradeNest Live](https://tradenest-33e74.firebaseapp.com/)
-*(Replace this with your actual deployment link)*
+
 
 ---
 
