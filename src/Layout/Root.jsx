@@ -18,7 +18,9 @@ const Root = () => {
         <FAQSection></FAQSection>
         <HowToUse></HowToUse>
         <NewsletterSection></NewsletterSection>
-        <Footer />
+      </div>
+      <div className="max-w-screen-2xl mx-auto">
+        <Footer></Footer>
       </div>
     </>
   );
