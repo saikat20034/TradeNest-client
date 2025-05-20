@@ -62,21 +62,24 @@ const Navbar = () => {
     setShowDropdown(false);
   };
 
-  const captureAndSearch = async () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    if (imageSrc) {
-      try {
-        const res = await axios.post('http://localhost:5000/api/image-search', {
-          image: imageSrc,
-        });
-        setResults(res.data);
-        setShowDropdown(true);
-      } catch (error) {
-        console.error('AI Image search failed:', error);
-      }
-    }
-    setShowCamera(false);
-  };
+  // const captureAndSearch = async () => {
+  //   const imageSrc = webcamRef.current.getScreenshot();
+  //   if (imageSrc) {
+  //     try {
+  //       const res = await axios.post(
+  //         'https://trade-nest-server.vercel.app/image-search',
+  //         {
+  //           image: imageSrc,
+  //         }
+  //       );
+  //       setResults(res.data);
+  //       setShowDropdown(true);
+  //     } catch (error) {
+  //       console.error('AI Image search failed:', error);
+  //     }
+  //   }
+  //   setShowCamera(false);
+  // };
 
   return (
     <div className="fixed w-full z-50 bg-gradient-to-r from-blue-50 to-indigo-100 shadow-md">
@@ -107,12 +110,12 @@ const Navbar = () => {
               >
                 <AiOutlineSearch size={20} />
               </button>
-              <button
+              {/* <button
                 onClick={() => setShowCamera(true)}
                 className="absolute right-0 top-2.5 text-gray-600"
               >
                 <AiOutlineCamera size={20} />
-              </button>
+              </button> */}
 
               {showDropdown && results.length > 0 && (
                 <ul className="absolute z-20 w-full bg-base-100 border border-base-300 mt-1 rounded-md shadow max-h-60 overflow-y-auto">
