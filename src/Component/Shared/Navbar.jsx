@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const avatarImg =
     'https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg';
-  const logo = '/image/tradenest.webp';
+  const logo = 'https://i.postimg.cc/PJr574Rj/tradenest.webp';
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);

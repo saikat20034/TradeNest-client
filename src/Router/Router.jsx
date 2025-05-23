@@ -70,7 +70,7 @@ export const Router = createBrowserRouter([
         ),
       },
       {
-        path: 'add-med',
+        path: 'add-product',
         element: (
           <PrivateRoute>
             <SellerRoute>

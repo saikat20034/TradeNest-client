@@ -19,7 +19,7 @@ const Sidebar = () => {
   const handleToggle = () => {
     setActive(!isActive)
   }
-  const logo = '/public/image/Screenshot 2025-03-08 120010.png';
+  const logo = 'https://i.postimg.cc/0yp1pSVd/Screenshot-2025-03-08-120010.png';
   return (
     <>
       {/* Small Screen Navbar */}
