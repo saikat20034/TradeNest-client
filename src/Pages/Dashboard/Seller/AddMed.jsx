@@ -44,7 +44,7 @@ const AddMed = () => {
 
     try {
       const response = await fetch(
-        'https://trade-nest-server.vercel.app//medicines',
+        'https://trade-nest-server.vercel.app/medicines',
         {
           method: 'POST',
           headers: {
