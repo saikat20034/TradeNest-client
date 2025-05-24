@@ -4,7 +4,7 @@ import {
   AiOutlineCamera,
 } from 'react-icons/ai';
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Container from './Container';
 import useAuth from '../../Hooks/useAuth';
 import axios from 'axios';
@@ -19,6 +19,11 @@ const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [showCamera, setShowCamera] = useState(false);
   const webcamRef = useRef(null);
+
+  const dropdownRef = useRef(null);
+  const profileBtnRef = useRef(null);
+
+  const location = useLocation();
 
   const avatarImg =
     'https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg';
@@ -62,24 +67,27 @@ const Navbar = () => {
     setShowDropdown(false);
   };
 
-  // const captureAndSearch = async () => {
-  //   const imageSrc = webcamRef.current.getScreenshot();
-  //   if (imageSrc) {
-  //     try {
-  //       const res = await axios.post(
-  //         'https://trade-nest-server.vercel.app/image-search',
-  //         {
-  //           image: imageSrc,
-  //         }
-  //       );
-  //       setResults(res.data);
-  //       setShowDropdown(true);
-  //     } catch (error) {
-  //       console.error('AI Image search failed:', error);
-  //     }
-  //   }
-  //   setShowCamera(false);
-  // };
+  // Close dropdown if clicking outside
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        profileBtnRef.current &&
+        !profileBtnRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Close dropdown when navigating to a new route
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   return (
     <div className="fixed w-full z-50 bg-gradient-to-r from-blue-50 to-indigo-100 shadow-md">
@@ -110,12 +118,6 @@ const Navbar = () => {
               >
                 <AiOutlineSearch size={20} />
               </button>
-              {/* <button
-                onClick={() => setShowCamera(true)}
-                className="absolute right-0 top-2.5 text-gray-600"
-              >
-                <AiOutlineCamera size={20} />
-              </button> */}
 
               {showDropdown && results.length > 0 && (
                 <ul className="absolute z-20 w-full bg-base-100 border border-base-300 mt-1 rounded-md shadow max-h-60 overflow-y-auto">
@@ -165,7 +167,7 @@ const Navbar = () => {
               </label>
 
               {/* Nav Links */}
-              <div className="hidden md:flex gap-4 text-sm font-medium">
+              <div className="hidden md:flex gap-4 text-lg font-medium">
                 <Link to="/" className="hover:text-primary">
                   Home
                 </Link>
@@ -176,14 +178,6 @@ const Navbar = () => {
                   Contact
                 </Link>
               </div>
-
-              {/* Cart */}
-              {/* <Link to="/cart" className="relative hover:scale-105 transition">
-                <AiOutlineShoppingCart size={24} />
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
-                  0
-                </span>
-              </Link> */}
 
               {/* Auth Buttons or Profile */}
               {!user ? (
@@ -201,6 +195,7 @@ const Navbar = () => {
               ) : (
                 <div className="relative">
                   <div
+                    ref={profileBtnRef}
                     onClick={() => setIsOpen(!isOpen)}
                     className="p-2 border flex items-center gap-2 rounded-full cursor-pointer hover:shadow transition"
                   >
@@ -212,7 +207,10 @@ const Navbar = () => {
                   </div>
 
                   {isOpen && (
-                    <div className="absolute right-0 top-12 w-48 bg-base-100 text-base-content rounded-xl shadow-lg text-sm">
+                    <div
+                      ref={dropdownRef}
+                      className="absolute right-0 top-12 w-48 bg-base-100 text-base-content rounded-xl shadow-lg text-sm"
+                    >
                       <div className="flex flex-col">
                         <Link to="/" className="px-4 py-3 hover:bg-base-200">
                           Home
@@ -270,9 +268,7 @@ const Navbar = () => {
               className="w-full max-w-sm mx-auto rounded-md"
             />
             <div className="flex justify-center gap-4 mt-4">
-              <button className="btn btn-primary" onClick={captureAndSearch}>
-                Capture & Search
-              </button>
+              <button className="btn btn-primary">Capture & Search</button>
               <button
                 className="btn btn-error"
                 onClick={() => setShowCamera(false)}

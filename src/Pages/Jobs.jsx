@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Jobs = () => {
   return (
     <div className="min-h-screenbg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center p-6">
-      <div className="max-w-3xl bg-white shadow-lg rounded-md p-8 transform transition-all hover:scale-105 duration-300">
+      <div className="max-w-3xl mt-16 bg-white shadow-lg rounded-md p-8 transform transition-all hover:scale-105 duration-300">
         <h1 className="text-5xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500">
           💼 Jobs
         </h1>

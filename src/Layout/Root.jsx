@@ -14,10 +14,7 @@ const Root = () => {
       </div>
       <div className="max-w-screen-xl mx-auto">
         <Outlet></Outlet>
-        <TestimonialsSection></TestimonialsSection>
-        <FAQSection></FAQSection>
-        <HowToUse></HowToUse>
-        <NewsletterSection></NewsletterSection>
+       
       </div>
       <div className="max-w-screen-6xl mx-auto">
         <Footer></Footer>
