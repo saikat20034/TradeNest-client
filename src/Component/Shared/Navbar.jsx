@@ -67,7 +67,6 @@ const Navbar = () => {
     setShowDropdown(false);
   };
 
-  // Close dropdown if clicking outside
   useEffect(() => {
     const handleClickOutside = event => {
       if (
@@ -84,7 +83,6 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Close dropdown when navigating to a new route
   useEffect(() => {
     setIsOpen(false);
   }, [location]);
@@ -94,7 +92,6 @@ const Navbar = () => {
       <div className="py-2 border-b border-base-300">
         <Container>
           <div className="flex justify-between items-center gap-4 flex-wrap">
-            {/* Logo */}
             <Link to="/">
               <img
                 src={logo}
@@ -103,7 +100,6 @@ const Navbar = () => {
               />
             </Link>
 
-            {/* Center: Search */}
             <div className="flex-grow max-w-md relative hidden md:flex items-center">
               <input
                 type="text"
@@ -143,9 +139,7 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Right Side */}
             <div className="flex items-center gap-4">
-              {/* Theme Toggle */}
               <label className="swap swap-rotate">
                 <input
                   type="checkbox"
@@ -166,20 +160,24 @@ const Navbar = () => {
                 </svg>
               </label>
 
-              {/* Nav Links */}
               <div className="hidden md:flex gap-4 text-lg font-medium">
-                <Link to="/" className="hover:text-primary">
+                <Link to="/" className="hover:text-yellow-400 transition">
                   Home
                 </Link>
-                <Link to="/about-us" className="hover:text-primary">
+                <Link
+                  to="/about-us"
+                  className="hover:text-yellow-400 transition"
+                >
                   About
                 </Link>
-                <Link to="/contact" className="hover:text-primary">
+                <Link
+                  to="/contact"
+                  className="hover:text-yellow-400 transition"
+                >
                   Contact
                 </Link>
               </div>
 
-              {/* Auth Buttons or Profile */}
               {!user ? (
                 <div className="flex gap-2">
                   <Link
@@ -221,12 +219,20 @@ const Navbar = () => {
                         >
                           Dashboard
                         </Link>
-                        <Link
-                          to="/dashboard/update-profile"
-                          className="px-4 py-3 hover:bg-base-200"
-                        >
-                          Update Profile
-                        </Link>
+
+                        {/* Tooltip Hover on Update Profile */}
+                        <div className="relative group">
+                          <Link
+                            to="/dashboard/update-profile"
+                            className="px-4 py-3 hover:bg-base-200 block"
+                          >
+                            Update Profile
+                          </Link>
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 -mb-1 px-3 py-1 bg-base-300 text-sm rounded shadow-md opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap z-10">
+                            {user?.displayName || 'No Name'}
+                          </div>
+                        </div>
+
                         <button
                           onClick={logOut}
                           className="px-4 py-3 hover:bg-base-200 text-left"
@@ -241,7 +247,6 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Search Bar */}
           <div className="block md:hidden mt-3 flex gap-2 items-center">
             <input
               type="text"
@@ -257,7 +262,6 @@ const Navbar = () => {
         </Container>
       </div>
 
-      {/* Camera Modal */}
       {showCamera && (
         <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
           <div className="bg-base-100 p-4 rounded-md text-center">
