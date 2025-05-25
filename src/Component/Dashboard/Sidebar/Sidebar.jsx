@@ -20,7 +20,7 @@ const Sidebar = () => {
     setActive(!isActive);
   };
 
-  const logo = 'https://i.postimg.cc/0yp1pSVd/Screenshot-2025-03-08-120010.png';
+  const logo = 'https://i.postimg.cc/CKcBjJHX/home-button-9073032.png';
 
   return (
     <>
@@ -53,7 +53,7 @@ const Sidebar = () => {
                 <img
                   src={logo}
                   alt="logo"
-                  width="150"
+                  width="50"
                   height="100"
                   className="transition duration-300"
                 />
