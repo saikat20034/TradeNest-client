@@ -41,7 +41,7 @@ const Navbar = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/medicines?search=${searchTerm}`
+        `https://trade-nest-server.vercel.app/medicines?search=${searchTerm}`
       );
       setResults(response.data);
       setShowDropdown(true);

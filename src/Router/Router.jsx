@@ -4,7 +4,7 @@ import ErrorPage from './../Pages/ErrorPage';
 import Home from './../Pages/Home/Home';
 import MedDetails from './../Pages/MedDetails/MedDetails';
 import Login from './../Pages/Login/Login';
-import SignUp from './../Pages/SignUp/SignUp';
+// import SignUp from './../Pages/SignUp/SignUp';
 import PrivateRoute from './PrivateRoute';
 import DashboardLayout from './../Layout/DashboardLayout';
 import Statistics from './../Pages/Dashboard/Common/Statistics';
@@ -29,6 +29,7 @@ import PostYourItem from '../Component/PostYourItem/PostYourItem';
 import BrowseBuyInfoPage from '../Component/BrowseBuyInfoPage/BrowseBuyInfoPage';
 import Meds from '../Component/Home/Meds';
 import CompleteOrderPage from '../Component/CompleteOrderPage/CompleteOrderPage';
+import SignUp from '../Pages/SignUp/SignUp';
 
 export const Router = createBrowserRouter([
   {
@@ -76,7 +77,8 @@ export const Router = createBrowserRouter([
   },
 
   { path: '/login', element: <Login /> },
-  { path: '/signup', element: <SignUp /> },
+  // { path: '/signup', element: <SignUp /> },
+  { path: '/signup', element: <SignUp></SignUp>},
   {
     path: '/dashboard',
     element: (

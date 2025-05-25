@@ -59,12 +59,12 @@ const Profile = () => {
                     Update Profile
                   </button>
                 </Link>
-                <button
+                {/* <button
                   onClick={() => setIsModalOpen(true)}
                   className='bg-lime-500 px-7 py-1 rounded-lg text-black cursor-pointer hover:bg-lime-800'
                 >
                   Change Password
-                </button>
+                </button> */}
 
                 <UpdatePasswordModal
                   isOpen={isModalOpen}
