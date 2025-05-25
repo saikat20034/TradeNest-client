@@ -13,7 +13,7 @@ const ContactUs = () => {
         </p>
         <div className="mt-6 space-y-4">
           <p className="text-xl text-gray-800 font-semibold flex items-center gap-2">
-            📍 <strong>Our Address:</strong> 123 Market Street, Dhaka,
+            📍 <strong>Our Address:</strong> MBSTU, Dhaka,
             Bangladesh
           </p>
           <p className="text-xl text-gray-800 font-semibold flex items-center gap-2">
